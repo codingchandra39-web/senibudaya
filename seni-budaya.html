@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seni Budaya — SMP Bintang Laut</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --dark: #1a1410;
+    --red: #8b2020;
+    --red-light: #c0392b;
+    --gold: #c9a84c;
+    --tan: #d4b896;
+    --text: #1c1209;
+    --muted: #6a5a48;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Source Sans 3', sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+    font-size: 16px;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(139,32,32,0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 20%, rgba(201,168,76,0.15) 0%, transparent 50%);
+  }
+  .hero-school {
+    font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px; position: relative;
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(48px, 10vw, 96px);
+    font-weight: 700;
+    line-height: 0.95;
+    position: relative;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    margin-top: 16px; font-size: 14px; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--tan); position: relative;
+    font-weight: 500;
+  }
+  .hero-year {
+    margin-top: 40px; font-size: 13px; letter-spacing: 3px;
+    color: var(--muted); position: relative;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex; gap: 0;
+    background: var(--dark);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-tab {
+    flex: 1; padding: 16px 10px;
+    text-align: center;
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; color: var(--muted);
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .nav-tab:hover { color: var(--gold); }
+  .nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* SECTIONS */
+  .section { display: none; padding: 60px 20px; max-width: 860px; margin: 0 auto; }
+  .section.active { display: block; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTION HEADER */
+  .section-header {
+    margin-bottom: 50px; text-align: center;
+  }
+  .section-label {
+    font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--red); margin-bottom: 10px; font-weight: 600;
+  }
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(36px, 8vw, 64px);
+    font-weight: 700; color: var(--dark);
+    line-height: 1;
+  }
+  .section-divider {
+    width: 60px; height: 3px; background: var(--red);
+    margin: 20px auto 0;
+  }
+
+  /* CARD */
+  .card {
+    background: white;
+    border-radius: 2px;
+    padding: 36px;
+    margin-bottom: 24px;
+    border-left: 4px solid var(--red);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  }
+  .card-title {
+    font-family: 'Lora', serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--dark); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card-title .num {
+    background: var(--red); color: white;
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-family: 'Source Sans 3', sans-serif;
+    font-weight: 700; flex-shrink: 0;
+  }
+  .card p {
+    font-size: 16px; line-height: 1.9;
+    color: #1c1209; margin-bottom: 14px;
+  }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: var(--dark); color: var(--cream);
+    border-radius: 2px; padding: 28px 32px;
+    margin: 12px 0; border-left: 4px solid var(--gold);
+  }
+  .highlight p { color: #e8e0d0; font-size: 15.5px; line-height: 1.85; }
+  .highlight strong { color: var(--gold); }
+
+  /* LIST */
+  .styled-list { list-style: none; margin: 10px 0; }
+  .styled-list li {
+    padding: 10px 0 10px 24px;
+    border-bottom: 1px solid #f0ebe0;
+    font-size: 15.5px; line-height: 1.75;
+    position: relative; color: #1c1209;
+  }
+  .styled-list li::before {
+    content: '→';
+    position: absolute; left: 0; top: 11px;
+    color: var(--red); font-size: 13px;
+  }
+  .styled-list li:last-child { border-bottom: none; }
+
+  /* TAG */
+  .tag {
+    display: inline-block;
+    background: rgba(139,32,32,0.1);
+    color: var(--red);
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+    margin-bottom: 14px; font-weight: 600;
+  }
+
+  /* TUJUAN CARD */
+  .tujuan-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-top: 16px;
+  }
+  @media (max-width: 600px) { .tujuan-grid { grid-template-columns: 1fr; } }
+  .tujuan-item {
+    background: var(--cream);
+    border: 1px solid var(--tan);
+    border-radius: 2px; padding: 16px;
+    font-size: 15px; line-height: 1.75; color: var(--text);
+  }
+
+  /* NESTED CARD */
+  .sub-card {
+    background: var(--cream);
+    border-radius: 2px; padding: 20px 24px;
+    margin: 14px 0;
+    border-top: 2px solid var(--gold);
+  }
+  .sub-card-title {
+    font-weight: 700; font-size: 15px;
+    color: var(--dark); margin-bottom: 10px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .sub-card p { font-size: 15.5px; line-height: 1.8; color: #1c1209; }
+
+  /* INTERVAL TABLE */
+  table {
+    width: 100%; border-collapse: collapse;
+    margin: 16px 0; font-size: 15px;
+  }
+  th {
+    background: var(--dark); color: var(--gold);
+    padding: 12px 14px; text-align: left;
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 600;
+  }
+  td {
+    padding: 12px 14px; border-bottom: 1px solid #ede7da;
+    color: #1c1209; line-height: 1.6;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #faf7f2; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); color: var(--muted);
+    text-align: center; padding: 30px;
+    font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+    margin-top: 60px;
+  }
+  footer span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-school">SMP Bintang Laut · Seni Budaya</div>
+  <h1>SENI<br><span>BUDAYA</span></h1>
+  <div class="hero-sub">Materi Lengkap Kelas</div>
+  <div class="hero-year">2025 — 2026</div>
+</div>
+
+<nav class="nav-tabs">
+  <a class="nav-tab active" onclick="show('tari', this)">Seni Tari</a>
+  <a class="nav-tab" onclick="show('musik', this)">Seni Musik</a>
+  <a class="nav-tab" onclick="show('lukis', this)">Seni Rupa</a>
+</nav>
+
+<!-- ============================================================ -->
+<!-- SENI TARI -->
+<!-- ============================================================ -->
+<div class="section active" id="tari">
+  <div class="section-header">
+    <div class="section-label">Bab · Seni Tari</div>
+    <div class="section-title">SENI TARI</div>
+    <div class="section-divider"></div>
+  </div>
+
+  <!-- Pengertian -->
+  <div class="card">
+    <div class="tag">Pengertian</div>
+    <div class="card-title">Apa Itu Seni Tari?</div>
+    <p>Seni tari adalah seni yang mengungkapkan perasaan jiwa manusia melalui gerak-gerak tubuh yang indah dan ritmis. Tari merupakan ekspresi jiwa manusia yang diungkapkan dengan gerak-gerak ritmis yang indah dan menjadi bagian dari warisan budaya.</p>
+    <div class="highlight">
+      <p>Gerak dalam tari harus meliputi tiga hal utama:</p>
+      <ul class="styled-list" style="margin-top:10px;">
+        <li><strong>Wirama (Irama):</strong> Menyatukan gerakan badan dengan musik pengiringnya, baik dari segi tempo maupun iramanya.</li>
+        <li><strong>Wirasa (Rasa):</strong> Seni tari harus mampu menyampaikan sebuah perasaan yang ada di dalam jiwa, melalui gerakan dan juga ekspresi.</li>
+        <li><strong>Wiraga (Raga):</strong> Kemampuan penari dalam menguasai anggota tubuhnya untuk bergerak dengan benar dan indah.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Unsur Pendukung -->
+  <div class="card">
+    <div class="tag">Unsur Pendukung Tari</div>
+    <div class="card-title">Unsur Pendukung Tari</div>
+    <p>Unsur pendukung tari biasanya digunakan pada sebuah ajang agar tarian bisa lebih menarik. Berikut unsur-unsur pendukung tari:</p>
+
+    <div class="sub-card">
+      <div class="sub-card-title"><span class="num" style="background:var(--red);color:white;border-radius:50%;padding:2px 7px;font-size:11px;">1</span> Ragam Gerak</div>
+      <p>Ragam gerak di dalam tari adalah gerak sehari-hari yang telah diberi sentuhan seni. Hasil pengolahan gerak ini akan menghasilkan dua jenis gerak tari:</p>
+      <ul class="styled-list" style="margin-top:10px;">
+        <li><strong>Gerak Murni:</strong> Gerak yang diolah untuk mendapatkan bentuk artistik dan tidak dimaksudkan untuk mempunyai arti. Biasanya gerak ini hanya berfungsi sebagai penghubung gerak saja.</li>
+        <li><strong>Gerak Maknawi:</strong> Gerak yang telah diubah menjadi gerak indah dan bermakna. Disebut juga gerak gesture yang bersifat menirukan — imitatif (dari binatang dan alam) serta mimitif (dari gerak-gerik manusia).</li>
+      </ul>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title"><span class="num" style="background:var(--red);color:white;border-radius:50%;padding:2px 7px;font-size:11px;">2</span> Iringan</div>
+      <p>Suatu tarian bisa dinikmati apabila diiringi dengan musik ritmis yang sesuai dengan gerakannya. Iringan musik dapat berasal dari dalam (internal) maupun dari luar (eksternal) diri penari.</p>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title"><span class="num" style="background:var(--red);color:white;border-radius:50%;padding:2px 7px;font-size:11px;">3</span> Tata Rias & Busana</div>
+      <p>Tata rias dan busana berfungsi untuk memperkuat karakter tokoh yang diperankan dalam tarian, serta memperindah penampilan penari di atas panggung.</p>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title"><span class="num" style="background:var(--red);color:white;border-radius:50%;padding:2px 7px;font-size:11px;">4</span> Pola Lantai</div>
+      <p>Pola lantai adalah garis-garis di lantai yang dilalui oleh penari atau formasi yang dibuat oleh sekelompok penari. Pola lantai berfungsi untuk memperindah pertunjukan tari.</p>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title"><span class="num" style="background:var(--red);color:white;border-radius:50%;padding:2px 7px;font-size:11px;">5</span> Tata Panggung & Pencahayaan</div>
+      <p>Setting panggung dan tata cahaya turut mempengaruhi suasana dan keindahan pertunjukan tari secara keseluruhan.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SENI MUSIK -->
+<!-- ============================================================ -->
+<div class="section" id="musik">
+  <div class="section-header">
+    <div class="section-label">Bab · Seni Musik</div>
+    <div class="section-title">SENI MUSIK</div>
+    <div class="section-divider"></div>
+  </div>
+
+  <!-- Bernyanyi Solo -->
+  <div class="card">
+    <div class="tag">BAB 2</div>
+    <div class="card-title">Bernyanyi Solo</div>
+    <p>Secara teknis, vokal dapat dipahami sebagai bunyi yang dihasilkan dengan menggetarkan pita suara melalui aliran udara dari paru-paru. Suara ini kemudian dimodifikasi oleh resonator alami tubuh, seperti rongga mulut, hidung, dan tenggorokan, yang menentukan karakteristik suara seseorang.</p>
+    <div class="tujuan-grid">
+      <div class="tujuan-item">✦ Memahami teknik dasar bernyanyi solo (pernapasan, intonasi, artikulasi, ekspresi)</div>
+      <div class="tujuan-item">✦ Menerapkan teknik bernyanyi solo dalam praktik</div>
+      <div class="tujuan-item">✦ Merefleksikan pengalaman bernyanyi untuk meningkatkan kualitas vokal</div>
+      <div class="tujuan-item">✦ Mengapresiasi penampilan teman dengan istilah musik yang tepat</div>
+    </div>
+  </div>
+
+  <!-- Jenis Vokal -->
+  <div class="card">
+    <div class="tag">Jenis Vokal</div>
+    <div class="card-title">Jenis-Jenis Vokal</div>
+    <p>Dalam dunia musik, vokal dapat dikategorikan ke dalam beberapa jenis berdasarkan jangkauan nada dan teknik penggunaannya:</p>
+    <table>
+      <tr><th>Jenis Vokal</th><th>Keterangan</th><th>Jangkauan</th></tr>
+      <tr><td><strong>Soprano</strong></td><td>Jenis suara tertinggi wanita. Digunakan dalam opera, paduan suara, dan musik klasik.</td><td>C4 – C6</td></tr>
+      <tr><td><strong>Mezzo-Soprano</strong></td><td>Suara wanita menengah, lebih rendah dari soprano tetapi lebih tinggi dari alto. Banyak digunakan dalam musik pop dan teater musikal.</td><td>A3 – A5</td></tr>
+      <tr><td><strong>Alto</strong></td><td>Jenis suara wanita terendah. Sering digunakan dalam harmoni vokal karena karakter suaranya yang dalam dan kaya.</td><td>F3 – F5</td></tr>
+      <tr><td><strong>Tenor</strong></td><td>Jenis suara pria tertinggi. Banyak ditemukan dalam musik opera dan paduan suara pria.</td><td>C3 – C5</td></tr>
+      <tr><td><strong>Bariton</strong></td><td>Suara pria dengan jangkauan menengah antara bass dan tenor. Banyak digunakan dalam musik pop dan klasik.</td><td>A2 – A4</td></tr>
+      <tr><td><strong>Bass</strong></td><td>Jenis suara pria terendah. Memiliki suara yang dalam dan berat, sering digunakan untuk bagian harmoni rendah dalam paduan suara.</td><td>E2 – E4</td></tr>
+    </table>
+  </div>
+
+  <!-- Teknik Vokal -->
+  <div class="card">
+    <div class="tag">Teknik Vokal</div>
+    <div class="card-title">Teknik-Teknik Vokal</div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">1. Teknik Intonasi</div>
+      <p>Teknik intonasi pada dasar dapat dipahami sebagai sebuah teknik vokal yang berkaitan dengan kemampuan dalam menentukan ketepatan tinggi serta rendahnya suatu bunyi di setiap nada. Hal tersebut berarti, ada penekanan yang berbeda-beda dalam setiap jumlah suku kata pada sebuah lagu yang sedang dinyanyikan.</p>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">2. Teknik Artikulasi</div>
+      <p>Artikulasi merupakan perubahan saluran pada ruang rongga udara yang membantu mengeluarkan suara menjadi lebih jelas. Secara khusus, artikulasi adalah teknik melafalkan kata demi kata secara jelas dan lancar.</p>
+      <p style="margin-top:10px;"><strong>Faktor yang mempengaruhi artikulasi:</strong></p>
+      <ul class="styled-list">
+        <li><strong>Posisi Mulut:</strong> Mulut dapat dibuka selebar tiga jari secara vertikal atau membentuk mulut elips, sehingga suara yang dihasilkan menjadi bulat dan kuat.</li>
+        <li><strong>Sikap Badan:</strong> Tegakkan kepala, busungkan sedikit dada, luruskan tulang punggung, buka sedikit kaki dan tegak lurus.</li>
+      </ul>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">3. Teknik Resonansi</div>
+      <p>Resonansi memiliki peran yang sangat penting untuk membuat pita suara menjadi lebih nyaring dan indah. Terdapat 4 rongga resonansi yang dimiliki manusia:</p>
+      <ul class="styled-list">
+        <li>Resonan atas atau nasal cavities — semua rongga di atas mulut dan tenggorokan</li>
+        <li>Resonan tengah — yaitu mulut dan bagian belakang mulut</li>
+        <li>Resonan bawah — yaitu bagian dada</li>
+        <li>Resonan yang bentuknya tidak bisa diubah — rongga dahi, rongga tulang baji, rongga tulang saringan, dan rongga rahang</li>
+      </ul>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">4. Teknik Vokalisasi</div>
+      <p>Latihan vokalisis bertujuan untuk menjaga dan menyempurnakan huruf vokal dan konsonan yang kamu keluarkan.</p>
+      <ul class="styled-list">
+        <li><strong>Bunyi Vokal:</strong> Bunyi yang keluar karena udara dari paru-paru tidak mendapat halangan. Bergantung pada posisi bibir, maju mundur lidah, dan tinggi rendah lidah.</li>
+        <li><strong>Bunyi Konsonan:</strong> Bunyi yang keluar dari paru-paru dan mendapat hambatan. Tergantung gerakan lidah sebagai artikulator dan sasaran titik artikulasi.</li>
+      </ul>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">5. Teknik Pernapasan</div>
+      <p>Dalam bernyanyi, pernapasan menjadi salah satu teknik vokal yang berperan penting sehingga perlu dilatih secara rutin. Terdapat 3 teknik pernapasan:</p>
+      <ul class="styled-list">
+        <li><strong>Pernapasan Dada:</strong> Dilakukan dengan cara menghirup udara ke dalam paru-paru dan menempatkannya pada bagian atas. Bisa dikatakan sebagai napas pendek dan tidak cocok dipakai saat bernyanyi.</li>
+        <li><strong>Pernapasan Perut:</strong> Menghasilkan suara lebih keras, namun tidak cukup bagus apabila digunakan saat bernyanyi. Membuat paru-paru lebih kecil sehingga udara yang masuk lebih cepat keluar.</li>
+        <li><strong>Pernapasan Diafragma:</strong> Teknik pernapasan terbaik. Penyanyi mampu mendapatkan udara lebih banyak sehingga napas menjadi lebih panjang dan kontrol udara lebih mudah. Ketika diafragma menegang dan lurus, rongga perut dan rongga dada menjadi lebih longgar.</li>
+      </ul>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">6. Teknik Pembawaan</div>
+      <p>Pembawaan dalam bernyanyi tidak kalah penting. Jika seseorang sudah memiliki teknik vokal yang bagus tapi tidak pandai dalam membawakan lagu, maka hasilnya akan kurang diminati oleh khalayak.</p>
+      <p style="margin-top:10px;"><strong>Faktor yang mempengaruhi pembawaan:</strong></p>
+      <ul class="styled-list">
+        <li>Tempo</li><li>Tema</li><li>Ekspresi</li>
+        <li>Gaya menyanyi</li><li>Irama</li><li>Dinamik</li><li>Pesan</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tangga Nada -->
+  <div class="card">
+    <div class="tag">Teori Musik</div>
+    <div class="card-title">Tangga Nada dan Akor</div>
+    <p>Tangga nada adalah urutan nada yang disusun secara berjenjang. Terdapat dua jenis utama:</p>
+    <div class="highlight">
+      <p><strong>Mayor</strong> — Ceria, terang, semangat. Interval: 1 – 1 – ½ – 1 – 1 – 1 – ½</p>
+      <p style="margin-top:8px;"><strong>Minor</strong> — Sedih, murung, sendu. Interval: 1 – ½ – 1 – 1 – ½ – 1 – 1</p>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">Contoh Tangga Nada</div>
+      <ul class="styled-list">
+        <li><strong>C Mayor:</strong> C – D – E – F – G – A – B – C (tidak ada tanda # atau mol)</li>
+        <li><strong>A Minor:</strong> A – B – C – D – E – F – G – A (tidak ada tanda # atau mol)</li>
+        <li><strong>Tangga Nada Kruis (#):</strong> Nada # mempunyai 7 tingkatan 1# sampai 7#. Nada dasar diambil dari nada ke-5 tangga nada sebelumnya.</li>
+        <li><strong>Tangga Nada Mol (b):</strong> Nada dasar diambil dari nada ke-4 tangga nada sebelumnya.</li>
+      </ul>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">Akor (Chord)</div>
+      <p>Akor adalah kumpulan beberapa nada yang biasanya terdiri minimal tiga nada atau lebih dan dimainkan secara bersamaan sehingga terdengar harmonis. Terdapat 4 jenis akor:</p>
+      <table>
+        <tr><th>Jenis Akor</th><th>Nuansa</th><th>Interval</th></tr>
+        <tr><td>Mayor</td><td>Ceria, megah, tegas</td><td>2 + 1½</td></tr>
+        <tr><td>Minor</td><td>Sedih, melankolis, serius</td><td>1½ + 2</td></tr>
+        <tr><td>Diminished</td><td>Tegang, menggantung</td><td>1½ + 1½</td></tr>
+        <tr><td>Augmented</td><td>Mistis</td><td>2 + 2</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SENI RUPA -->
+<!-- ============================================================ -->
+<div class="section" id="lukis">
+  <div class="section-header">
+    <div class="section-label">Bab · Seni Rupa</div>
+    <div class="section-title">SENI RUPA</div>
+    <div class="section-divider"></div>
+  </div>
+
+  <!-- Komposisi & Proporsi -->
+  <div class="card">
+    <div class="tag">Prinsip Seni Rupa</div>
+    <div class="card-title">Komposisi & Proporsi</div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">Komposisi</div>
+      <p>Komposisi adalah istilah yang kerap kali digunakan di berbagai bidang kehidupan. Komposisi dikenal sebagai susunan atau tata susun. Komposisi berkaitan dengan penyusunan unsur-unsur kesenian dengan mengaturnya agar menjadi bagus, teratur, dan serasi. Hal ini tentunya sangatlah penting dalam seni rupa dalam rangka membuat karya yang bagus dan bernilai estetik.</p>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">Proporsi</div>
+      <p>Proporsi adalah perbandingan antara obyek satu dengan lainnya yang sesuai dengan realita dan pengamatan kita. Prinsip proporsi biasanya digunakan seniman saat menggambar suatu karya. Jika unsur seni rupa tidak memiliki proporsi, gambar tersebut tidak seimbang, baik dari perwanaan maupun bentuknya. Selain penting dalam seni rupa, prinsip proporsi juga ada dalam tubuh manusia.</p>
+    </div>
+  </div>
+
+  <!-- Teknik Arsir -->
+  <div class="card">
+    <div class="tag">Teknik Menggambar</div>
+    <div class="card-title">Teknik Arsir</div>
+    <p>Teknik Arsir merupakan teknik menggambar yang lebih menekankan pada kekuatan garis atau stroke. Teknik arsir dilakukan dengan menggoreskan alat tulis secara berulang-ulang hingga membentuk sebuah gambar yang luar biasa, dan biasanya untuk memberikan kesan gelap terang pada benda yang digambar.</p>
+    <div class="highlight">
+      <p>Dalam membuat sebuah karya dua dimensi dibutuhkan berbagai metode serta teknik gambar, salah satunya ialah teknik arsir. Teknik ini merupakan cara menggambar menggunakan unsur garis yang digoreskan secara teratur serta berulang-ulang — baik itu garis lengkung, garis lurus, lingkaran, serta titik yang diulang dengan intensitas yang berbeda-beda. <strong>Fungsi arsir</strong> adalah untuk memberi kesan maupun realistis pada obyek atau benda yang digambar.</p>
+    </div>
+  </div>
+
+  <!-- Sket / Sketsa -->
+  <div class="card">
+    <div class="tag">Sket / Sketsa</div>
+    <div class="card-title">Sket & Sketsa</div>
+    <p>Dalam pembuatan sebuah karya seni, baik berupa seni lukis, animasi, arsitektur, atau gambar lainnya, diperlukan pembuatan sketsa terlebih dahulu. Sketsa adalah pra rancangan yang dibuat untuk mempermudah proses pembuatan gambar.</p>
+    <p>Tidak harus menjadi seniman handal untuk membuat sketsa, karena sketsa merupakan gambaran awal saja. Namun, perlu diingat bahwa sketsa yang dibuat juga harus jelas dan bisa dimengerti.</p>
+    <div class="highlight">
+      <p>Sketsa berasal dari bahasa Yunani, yaitu <strong>"skedios extempore"</strong> yang artinya "tanpa persiapan". Kemudian diadopsi ke bahasa Inggris menjadi "sketch". Sketsa adalah uraian ide awal berbentuk gambar yang berfungsi untuk mewakili gambar akhir. Sketsa ini sifatnya sementara, dan menggunakan goresan-goresan garis.</p>
+    </div>
+  </div>
+
+  <!-- Perspektif -->
+  <div class="card">
+    <div class="tag">Perspektif</div>
+    <div class="card-title">Gambar Perspektif</div>
+    <p>Gambar perspektif adalah cara menggambar suatu objek riil atau imajiner yang menitikberatkan pada penglihatan mata atau menurut pandangan mata seorang penggambar. Gambar perspektif merupakan penggabungan dari seni dan ilmu untuk menggambar suatu objek di atas sebuah bidang datar sehingga hasil gambar nampak seperti pandangan mata dari suatu jarak dan posisi tertentu.</p>
+
+    <div class="sub-card">
+      <div class="sub-card-title">Perspektif 1 Titik Hilang</div>
+      <p>Semua garis perspektif menuju ke satu titik hilang (TH) yang berada di garis horizon. Contoh posisi objek terhadap garis horizon:</p>
+      <ul class="styled-list">
+        <li>Balok di atas garis horizon — depan samping kiri kita</li>
+        <li>Balok di atas garis horizon — depan samping kanan kita</li>
+        <li>Balok di bawah garis horizon — depan samping kiri kita</li>
+        <li>Balok di bawah garis horizon — depan samping kanan kita</li>
+      </ul>
+      <p style="margin-top:10px;"><strong>Perspektif Interior Ruang 1 Titik Hilang</strong> sering digunakan untuk menggambar interior ruangan seperti kamar, ruang tamu, dan lorong.</p>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">Perspektif 2 Titik Hilang</div>
+      <p>Terdapat dua titik hilang (TH1 dan TH2) yang masing-masing berada di ujung kiri dan kanan garis horizon. Digunakan untuk menggambar objek yang dilihat dari sudut.</p>
+      <ul class="styled-list">
+        <li><strong>Pandangan Katak:</strong> Balok berada di atas garis horizon</li>
+        <li><strong>Pandangan Burung:</strong> Balok berada di bawah garis horizon</li>
+      </ul>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">Posisi Objek terhadap Garis Horizon</div>
+      <p>Contoh gambar kaleng maupun kotak memiliki 3 kemungkinan posisi:</p>
+      <ul class="styled-list">
+        <li><strong>A — Di atas garis horizon</strong></li>
+        <li><strong>B — Di depan garis horizon</strong></li>
+        <li><strong>C — Di bawah garis horizon</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Panorama -->
+  <div class="card">
+    <div class="tag">Gambar Panorama</div>
+    <div class="card-title">Gambar Panorama</div>
+    <p>Gambar panorama adalah gambar yang menampilkan pemandangan alam atau lingkungan secara luas dan menyeluruh. Panorama berasal dari bahasa Yunani <em>"pan"</em> (semua) dan <em>"horama"</em> (pemandangan), yang artinya gambaran keseluruhan suatu tempat atau pemandangan yang luas.</p>
+    <p>Gambar panorama biasanya menampilkan sudut pandang yang sangat lebar — lebih lebar dari pandangan normal mata manusia — sehingga menciptakan kesan luas, megah, dan mendalam pada karya yang dihasilkan.</p>
+
+    <div class="sub-card">
+      <div class="sub-card-title">Ciri-Ciri Gambar Panorama</div>
+      <ul class="styled-list">
+        <li>Menampilkan pemandangan yang sangat luas (sudut pandang lebih dari 120°)</li>
+        <li>Objek utama biasanya berupa alam terbuka seperti pegunungan, lautan, sawah, atau kota</li>
+        <li>Menggunakan garis horizon yang jelas sebagai dasar komposisi</li>
+        <li>Memiliki kedalaman ruang (foreground, middleground, background) yang terlihat jelas</li>
+        <li>Memperhatikan perspektif dan proporsi antara objek dekat dan jauh</li>
+      </ul>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">Jenis-Jenis Panorama</div>
+      <ul class="styled-list">
+        <li><strong>Panorama Alam:</strong> Menggambarkan pemandangan alam seperti pegunungan, pantai, hutan, danau, dan langit.</li>
+        <li><strong>Panorama Perkotaan (Cityscape):</strong> Menggambarkan pemandangan kota dengan gedung-gedung, jalan raya, dan aktivitas urban.</li>
+        <li><strong>Panorama Pedesaan:</strong> Menggambarkan suasana desa, sawah, ladang, dan kehidupan alam pedesaan.</li>
+        <li><strong>Panorama Interior:</strong> Menampilkan sudut pandang luas di dalam ruangan besar seperti aula, stadion, atau katedral.</li>
+      </ul>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-card-title">Teknik Menggambar Panorama</div>
+      <ul class="styled-list">
+        <li><strong>Tentukan garis horizon:</strong> Garis horizon menentukan sudut pandang — tinggi (bird's eye view) atau rendah (worm's eye view).</li>
+        <li><strong>Buat sketsa dahulu:</strong> Mulai dengan sketsa ringan untuk menetapkan komposisi keseluruhan sebelum menambahkan detail.</li>
+        <li><strong>Atur gelap-terang (arsir):</strong> Gunakan teknik arsir untuk memberikan kedalaman dan dimensi pada objek-objek dalam panorama.</li>
+        <li><strong>Perhatikan proporsi:</strong> Objek yang lebih jauh digambar lebih kecil dan kurang detail dibandingkan objek yang lebih dekat.</li>
+        <li><strong>Tambahkan tekstur:</strong> Tekstur pada tanah, air, dedaunan, dan langit membuat panorama tampak lebih hidup dan realistis.</li>
+      </ul>
+    </div>
+
+    <div class="highlight">
+      <p><strong>Tips:</strong> Dalam menggambar panorama, mulailah dengan menetapkan tiga lapisan utama — <strong>latar depan (foreground)</strong> yang paling detail, <strong>latar tengah (middleground)</strong> dengan detail sedang, dan <strong>latar belakang (background)</strong> yang paling sederhana dan samar. Teknik ini menciptakan ilusi kedalaman yang kuat.</p>
+    </div>
+  </div>
+
+  <!-- Gambar Animasi -->
+  <div class="card">
+    <div class="tag">Gambar Animasi</div>
+    <div class="card-title">Animasi</div>
+    <p>Animasi adalah perubahan cepat secara berurutan yang mampu menciptakan sebuah ilusi gerakan. Sesuai dengan namanya, animasi berasal dari bahasa Latin "animare" yang artinya adalah menghidupkan.</p>
+    <p>Untuk membuat tampilan visual yang menarik dan tampak hidup, film bertemakan animasi dibuat dengan cara mengurutkan kumpulan gambar dan ditampilkan dengan cepat, sehingga gambar terlihat hidup dan bergerak layaknya manusia.</p>
+    <p>Umumnya, frekuensi gambar animasi adalah perubahan gerak secara bergantian dengan gerakan yang sangat halus setiap detik. Sehingga, mata manusia seolah-olah menangkapnya menjadi satu gambar yang bergerak. Adapun orang yang membuat sebuah animasi disebut sebagai <strong>animator</strong>.</p>
+
+    <div class="sub-card">
+      <div class="sub-card-title">Fungsi Animasi</div>
+      <ul class="styled-list">
+        <li><strong>Hiburan:</strong> Pembuatan animasi seringkali diciptakan sebagai hiburan — seperti halnya film animasi yang bisa memberikan kesenangan untuk penontonnya. Konsep atau ide cerita yang diusung haruslah berbobot dan menyenangkan agar film bisa laris di pasaran.</li>
+        <li><strong>Presentasi:</strong> Animasi seringkali dimanfaatkan dalam menyajikan informasi atau presentasi. Ia digunakan untuk memperindah tampilan slide presentasi supaya presentasi tidak berjalan monoton.</li>
+        <li><strong>Edukasi:</strong> Animasi juga berguna untuk kepentingan edukasi. Dengan adanya animasi dalam pembelajaran, maka pembelajaran dianggap lebih efektif dan efisien karena siswa menjadi lebih memahami isi materi dengan baik.</li>
+        <li><strong>Periklanan (DOOH Advertising):</strong> Animasi memegang peranan penting dalam menarik perhatian audiens. Animasi tidak hanya memperindah tampilan visual namun juga membantu untuk menyampaikan pesan dengan mudah kepada audiens.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>SMP Bintang Laut</span> · Seni Budaya · 2025–2026
+</footer>
+
+<script>
+  function show(id, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.nav-tabs').offsetTop - 10, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
